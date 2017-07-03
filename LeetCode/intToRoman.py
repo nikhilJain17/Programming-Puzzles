@@ -3,7 +3,7 @@
 Input is guaranteed to be within the range from 1 to 3999.
 
 '''
-
+# nikhil jain
 
 def roman(num):
 
@@ -68,5 +68,12 @@ def roman(num):
 for x in range (1, 100):
 	print str(x) + ', ' + roman(x)
 		
+
+##############################################################
+# or make arrays like 
+# {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"}
+# i.e. 0,1,2,3,4,5, etc...
+# and index the array
+###############################################################
 		
 		
