@@ -12,40 +12,41 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 # if stack is empty, return true
 import math
 def isValid(s):
-	
-	stack = []
-	
-	openingChar = ['(', '{', '[']
-	closingChar = [')', '}', ']']
-	
+  
+    stack = []
 
-	for c in s:
-		if c in openingChar:
-			stack.append(c)
+    openingChar = ['(', '{', '[']
+    closingChar = [')', '}', ']']
 
-		elif c in closingChar:
 
+    for c in s:
+        if c in openingChar:
+            stack.append(c)
+
+        elif c in closingChar:
+            
             if len(stack) == 0:
-	            # more closing than opening brackets
-	            return False
+                # more closing than opening brackets
+                return False
+            
+            # use ascii table to figure out if brackets match
+            # print str(ord(stack[-1])) + ', ' + str(ord(c))
+            
+            if len(stack) > 0:
 
-			# use ascii table to figure out if brackets match
-			# print str(ord(stack[-1])) + ', ' + str(ord(c))
-
-			if len(stack) > 0:
-
-				if math.fabs(ord(stack[-1]) - ord(c)) < 3:
-					# brackets match
-					stack.pop()
-				else:
-					# top level brackets dont match
-					return False
-
-
-	if len(stack) == 0:
-		return True 
-	else:
-		# more opening than closing brackets
-		return False
+                if math.fabs(ord(stack[-1]) - ord(c)) < 3:
+                    # brackets match
+                    stack.pop()
+                else:
+                    # top level brackets dont match
+                    return False
 
 
+    if len(stack) == 0:
+        return True 
+    else:
+        # more opening than closing brackets
+        return False
+
+isValid('()()()')
+        
