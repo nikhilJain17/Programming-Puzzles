@@ -28,22 +28,71 @@ def dprime(input):
 def getIndexOfDups(values):
 
 	seen = set()
+	repeatedVals = [] # assumes max repetitions is 2
 	indices = []
 
 	for index, val in enumerate(values):
 		if val not in seen:				# first time seeing it boi
 			seen.add(val)
 		else:							# already seen val, so it is a repeat
-			indices.append(index)
+			indices.append(index)		# only gets duplicated index, not original index
+			repeatedVals.append(val)
 
+	# prepare array by making nonrepeated vals = 0
+
+	print repeatedVals
+
+	s = 0
+	for x in range(len(values)):
+		if values[x] in repeatedVals:
+			# print x 
+			s += x
+
+	print 's: ' + str(s)
+
+	# # get first indices
+	# for i in repeatedVals:
+	# 	indices.append(values.index(i))
+
+	# print indices
 	return indices
 
 def main():
 
-	values = []	
-	for x in range(0, 10001):
+
+	values = []	# all vals
+	repeated_vals = set()
+	
+	for x in range(0, 1001):
+		
+		d = dprime(x)
 		values.append(dprime(x))
 
-	print "Sum of amicable numbers under 10,000 is: " + str(sum(getIndexOfDups(values)))
+	s = 0
+	for val in values:
+		indices = [i for i, x in enumerate(values) if x == val]
+		if len(indices) > 2:
+			print indices
+			for i in indices:
+				s += i
+
+	print s
+
+	# 	# DOESN'T PROPERLY GET ALL THE REPEATED VALS
+	# 	if d not in repeated_vals:
+	# 		repeated_vals.add(d)
+
+	# # now we have a set of all the repeated vals
+	# s = 0
+	# for x in range(0, 101):
+	# 	if values[x] in repeated_vals:
+	# 		print str(x) + ' is amicable at value ' + str(values[x])
+	# 		s += x
+
+	# print s
+
+	# getIndexOfDups(values)
+
+	# print "Sum of amicable numbers under 10,000 is: " + str(sum(getIndexOfDups(values)))
 
 main()
