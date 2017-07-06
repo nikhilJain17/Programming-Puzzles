@@ -48,5 +48,4 @@ def isValid(s):
         # more opening than closing brackets
         return False
 
-isValid('()()()')
         

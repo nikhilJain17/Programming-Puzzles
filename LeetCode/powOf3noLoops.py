@@ -19,6 +19,7 @@ def isPowerOfThree(n):
 	
 	if n <= 0:
 		return False
+		
 
 	if lastDigit not in digitsList:
 		return False

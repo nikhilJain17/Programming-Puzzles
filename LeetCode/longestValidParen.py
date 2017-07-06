@@ -10,41 +10,31 @@ import math
 
 # checks if parenthesis are valid
 def isValid(s):
-  
-    stack = []
+    # openingChar = ['(', '{', '[']
+    # closingChar = [')', '}', ']']
+	stack = []
 
-    openingChar = ['(', '{', '[']
-    closingChar = [')', '}', ']']
+	for c in s:
+		if c == '(':
+			stack.append(c)
 
-
-    for c in s:
-        if c in openingChar:
-            stack.append(c)
-
-        elif c in closingChar:
+		elif c == ')':
             
-            if len(stack) == 0:
+			if len(stack) == 0:
                 # more closing than opening brackets
-                return False
+				return False
             
             # use ascii table to figure out if brackets match
             # print str(ord(stack[-1])) + ', ' + str(ord(c))
             
-            if len(stack) > 0:
+			if len(stack) > 0:
+				stack.pop()
 
-                if math.fabs(ord(stack[-1]) - ord(c)) < 3:
-                    # brackets match
-                    stack.pop()
-                else:
-                    # top level brackets dont match
-                    return False
-
-
-    if len(stack) == 0:
-        return True 
-    else:
+	if len(stack) == 0:
+		return True 
+	else:
         # more opening than closing brackets
-        return False
+		return False
 
 
 def checker(input):
@@ -58,15 +48,19 @@ def checker(input):
 
 		# do while
 		while True:
+			
+			length = end_index - start_index
+
+			if length <= max_length:
+				break
+
 			substr = input[start_index : end_index]
 
 			# found valid substr, check if it is max len
 			if isValid(substr):
-				length = end_index - start_index
 				print str(length) + ' <- len of ' + substr
 
-				if max_length < length:
-					max_length = length
+				max_length = length
 				
 				break
 
@@ -77,8 +71,7 @@ def checker(input):
 	return max_length
 
 
-# checker("(()"
-
+checker("((()(())))(((()()())((()))()()(((((()))(()(()))))(()()()()((())()))(((()(()))(()()((())((((()))((())()((()()(((())))(()(((()))(()))(()(((((()()()(()())))")
 
 
 
