@@ -12,9 +12,8 @@ Evaluate the sum of all the amicable numbers under 10000.
 import math
 from collections import defaultdict
 
-# inputs int n, returns sum of proper divisors INCLUDING n
-# because d(n) + n = d(m) + m if both m and n are amicable
-def dprime(input):
+# inputs int n, returns sum of proper divisors less than n
+def d(input):
 
 	sum = 0
 	# find all the factors and their pairs
@@ -22,77 +21,27 @@ def dprime(input):
 		if input % x == 0:
 			sum = sum + x + (input / x) # both factors are included
 
-	return sum
+	return sum - input
 
-# given a list, this func returns the index of the repeated values in the list
-def getIndexOfDups(values):
-
-	seen = set()
-	repeatedVals = [] # assumes max repetitions is 2
-	indices = []
-
-	for index, val in enumerate(values):
-		if val not in seen:				# first time seeing it boi
-			seen.add(val)
-		else:							# already seen val, so it is a repeat
-			indices.append(index)		# only gets duplicated index, not original index
-			repeatedVals.append(val)
-
-	# prepare array by making nonrepeated vals = 0
-
-	print repeatedVals
-
-	s = 0
-	for x in range(len(values)):
-		if values[x] in repeatedVals:
-			# print x 
-			s += x
-
-	print 's: ' + str(s)
-
-	# # get first indices
-	# for i in repeatedVals:
-	# 	indices.append(values.index(i))
-
-	# print indices
-	return indices
-
+# while iterating from 1 to 10,000
+# find higher pair of amicable pair (i.e. a = 280, d(a) = 220)
+# check arr[d(a)] == a to confirm lower pair matches
+# print ans
 def main():
 
-
-	values = []	# all vals
-	repeated_vals = set()
+	values = []			# all vals
+	amicable_sum = 0	# sum of all amicable nums under 10,000
 	
-	for x in range(0, 1001):
+	for x in range(0, 10001):
 		
-		d = dprime(x)
-		values.append(dprime(x))
+		values.append(d(x))
 
-	s = 0
-	for val in values:
-		indices = [i for i, x in enumerate(values) if x == val]
-		if len(indices) > 2:
-			print indices
-			for i in indices:
-				s += i
+		val = d(x)
+		if val < x:
+			print 'true'
+			if values[val] == x:
+				amicable_sum += (x + d(x))
 
-	print s
-
-	# 	# DOESN'T PROPERLY GET ALL THE REPEATED VALS
-	# 	if d not in repeated_vals:
-	# 		repeated_vals.add(d)
-
-	# # now we have a set of all the repeated vals
-	# s = 0
-	# for x in range(0, 101):
-	# 	if values[x] in repeated_vals:
-	# 		print str(x) + ' is amicable at value ' + str(values[x])
-	# 		s += x
-
-	# print s
-
-	# getIndexOfDups(values)
-
-	# print "Sum of amicable numbers under 10,000 is: " + str(sum(getIndexOfDups(values)))
+	print amicable_sum
 
 main()
