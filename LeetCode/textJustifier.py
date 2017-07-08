@@ -22,6 +22,11 @@ Note: Each word is guaranteed not to exceed L in length.
 
 def fullJustify(words, maxWidth):
 
+	if words == [""]:
+		s = ' ' * maxWidth
+		return [s]
+
+
 	# first, distribute words amongst lines
 
 	current_line = ''
@@ -49,36 +54,48 @@ def fullJustify(words, maxWidth):
 	# next, distribute spaces evenly
 
 	for line in arr_line:
-		# split line into array of words
-		line_words = line.split()
 
-		# go round robin between words spreading spaces out
+		# special rules for last line: normal, left-justified and no extra spaces between words
+		if line == arr_line[len(arr_line) - 1]:
+            # last line found, add any remaining spaces available
+            # remove last space when calculating line length
+			line = line[:-1]
+			if (maxWidth - len(line)) > 0:
+				line += ' ' * (maxWidth - len(line))
+            
+			finalans.append(line)
 
-		# remove whitespaces for counting purposes
-		line = line.replace(' ', '')
-		idx = 0		# which word gets whitespace
+		else:
+			# split line into array of words
+			line_words = line.split()
 
-		while len(line) <= maxWidth:
-			line_words[idx] += ' '
-			line += ' ' # this keeps line_words and line having same length for counting purposes
+			# go round robin between words spreading spaces out
 
-			# handles last word
-			if len(line_words) == 1:
-				idx = 0
-			else:
-				idx = (idx + 1) % (len(line_words) - 1)
+			# remove whitespaces for counting purposes
+			line = line.replace(' ', '')
+			idx = 0		# which word gets whitespace
 
-		# print line_words
+			while len(line) < maxWidth:
+				line_words[idx] += ' '
+				line += ' ' # this keeps line_words and line having same length for counting purposes
 
-		l = ''
-		for lw in line_words:
-			l += lw
+				# handles last word
+				if len(line_words) == 1:
+					idx = 0
+				else:
+					idx = (idx + 1) % (len(line_words) - 1)
 
-		finalans.append(l)
+			# print line_words
+
+			l = ''
+			for lw in line_words:
+				l += lw
+
+			finalans.append(l)
 
 	return finalans
 
-print fullJustify(["This", "is", "an", "example", "of", "text", "pes."], 100)
+print fullJustify(["Here","is","an","example","of","text","justification."], 14)
 
 
 
