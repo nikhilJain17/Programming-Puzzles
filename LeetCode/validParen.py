@@ -11,7 +11,7 @@ The brackets must close in the correct order, "()" and "()[]{}" are all valid bu
 # if a closing char is found in string AND matches top of stack, pop
 # if stack is empty, return true
 import math
-def isValid(s):
+def isValid(s): 
   
     stack = []
 
