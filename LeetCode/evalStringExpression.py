@@ -17,29 +17,46 @@ def calculate(s):
 	# by finding indices of operators
 
 	s = s.replace(' ', '')		# get rid of whitespaces
-	oper_index = 0			# index of operators
-	oper_list = []				# actual operators
+	oper_index = 0				# index of current operator found
+	mult_div_idx = []			# indices of higher level pemdas functions
+	add_sub_idx = []			# same but for lower pemdas
 	num_list = []
 
-	# snag operators and nums into list
+	# snag higher level operators and nums into list
 	for x in range(len(s)):
 		c = s[x]
-		if c in ['+', '-', '*', '/']:
+		
+		if c in ['*', '/']:
+			mult_div_idx.append(x)
+
 			num_list.append(s[oper_index:x])
 			oper_index = x + 1
-			oper_list.append(c)
+
+		elif c in ['+', '-']:
+			# add_sub_idx.append(x)
+
+			num_list.append(s[oper_index:x])
+			oper_index = x + 1
 
 		# snag last num, off by 1 error
 		if x == len(s) - 1:
 			num_list.append(s[oper_index:]) 
 
-	# pemdas: do all mult and div first
+			# s dot replace
 
-	print oper_list
-	print len(oper_list)
-	print num_list
-	print len(num_list)
-	print '_' * 70
+	# pemdas: do all mult and div first
+	for op in mult_div_idx:
+		num1 = int(s[op - 1])
+		num2 = int(s[op + 1])
+		print num1
+
+
+
+	# print mult_div_idx
+	# print len(oper_list)
+	# print num_list
+	# print len(num_list)
+	# print '_' * 70
 
 calculate('3    + 5 /13')
 calculate('49+ 14-1-1-0+45/2       * 3')
