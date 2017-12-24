@@ -45,10 +45,14 @@ def calculate(s):
 			# s dot replace
 
 	# pemdas: do all mult and div first
-	for op in mult_div_idx:
+	for x in range(len(mult_div_idx)):
+
+		op = mult_div_idx[x]
+
 		num1 = int(s[op - 1])
 		num2 = int(s[op + 1])
 		print num1
+		print 
 
 
 
@@ -58,6 +62,26 @@ def calculate(s):
 	# print len(num_list)
 	# print '_' * 70
 
-calculate('3    + 5 /13')
-calculate('49+ 14-1-1-0+45/2       * 3')
-calculate('')
+
+def balculate(s):
+	s = s.replace(' ', '')		# get rid of whitespaces
+	oper_index = 0				# index of current/last operator found (to get nums)
+	
+	# first pass for mult/div
+	for x in range(len(s)):
+		char = s[x]
+
+		if char in ['*', '/', '+', '-']:
+			print s[oper_index:x]
+			oper_index += 1 
+
+			# # snag last num, off by 1 error
+			# if x == len(s) - 1:
+			# 	num_list.append(s[oper_index:]) 
+
+
+
+
+balculate('3    + 5 /13')
+balculate('49+ 14-1-1-0+45/2       * 3')
+balculate('')
