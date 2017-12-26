@@ -12,7 +12,7 @@ def multiply(self, num1, num2):
     
     result, result_str = int1 * int2, ""
     print(result, int1, int2)
-    while result != 0:
+    while result >= 0:
         digit = result % 10
         result_str += num_lookup[digit]
         result = result // 10
